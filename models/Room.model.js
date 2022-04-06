@@ -12,7 +12,7 @@ const roomSchema = new Schema(
         imageUrl: {
             type: String
         },
-        reviews: [],
+        reviews: [{type: Schema.Types.ObjectId, ref: 'Review'}],
         userId: {
             type: Schema.Types.ObjectId,
             ref: 'User'

@@ -1,6 +1,7 @@
 const { Router } = require('express')
 
 const Room = require('../models/Room.model')
+const Review = require('../models/Review.model')
 
 const router = Router()
 
@@ -26,7 +27,14 @@ router.get('/', async (req, res) => {
 router.get('/:roomId', async (req, res) => {
     const { roomId } = req.params
     try {
-        const room = await Room.findById(roomId)
+        const room = await Room.findById(roomId).populate({
+            path: "reviews",
+            select: ["comment", "userId"],
+            populate: {
+                path: "userId",
+                select: "username"
+            }
+        })
         res.status(200).json(room)
     } catch (error) {
         res.status(500).json({ message: "Error while trying to get one room", error})
@@ -47,6 +55,7 @@ router.delete('/:roomId', async (req, res) => {
     const { roomId } = req.params
     try {
         await Room.findByIdAndDelete(roomId)
+        await Review.deleteMany({ roomId })
         res.status(204).json()
     } catch (error) {
         res.status(500).json({ message: "Error while trying to delete a room", error})

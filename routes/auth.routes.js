@@ -8,7 +8,6 @@ const User = require('../models/User.model');
 
 // executar router
 const router = Router();
-console.log('test')
 
 router.post('/signup', async (req, res) => {
   // informações q quero receber

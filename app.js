@@ -21,6 +21,8 @@ app.use(require('./middlewares/auth.middleware'));
 
 app.use('/rooms', require('./routes/room.routes'))
 
+app.use('/reviews', require('./routes/review.routes'))
+
 app.listen(process.env.PORT, () => {
   console.log(`Server running on PORT: ${process.env.PORT}`);
 });
