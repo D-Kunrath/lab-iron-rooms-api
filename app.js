@@ -19,6 +19,8 @@ app.use('/auth', require('./routes/auth.routes'));
 // middlewares de rotas
 app.use(require('./middlewares/auth.middleware'));
 
+app.use('/rooms', require('./routes/room.routes'))
+
 app.listen(process.env.PORT, () => {
   console.log(`Server running on PORT: ${process.env.PORT}`);
 });
